@@ -1,16 +1,71 @@
 <template>
-  <div id="View-employee">
-    <h3>View Employee</h3>
+  <div id="view-employee">
+    <h4 class="collection-header">{{name}}</h4>
+    <ul class="collection with-header">
+      <li class="collection-item">Employee ID#: {{employee_id}}</li>
+      <li class="collection-item">Department: {{dept}}</li>
+      <li class="collection-item">Position: {{position}}</li>
+    </ul>
+    <router-link to="/" class="btn grey">Back</router-link>
+    <button @click="deleteEmployee" class="btn red">Delete</button>
   </div>
 </template>
 
 <script>
+import db from "./firebaseInit";
 export default {
-  name: 'View-employee',
+  name: "view-employee",
   data() {
     return {
-
+      employee_id: null,
+      name: null,
+      dept: null,
+      position: null
+    };
+  },
+  beforeRouteEnter(to, from, next) {
+    db.collection("employees")
+      .where("employee_id", "==", to.params.employee_id)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          next(vm => {
+            vm.employee_id = doc.data().employee_id;
+            vm.name = doc.data().name;
+            vm.dept = doc.data().dept;
+            vm.position = doc.data().position;
+          });
+        });
+      });
+  },
+  watch: {
+    $route: "fetchData"
+  },
+  mothods: {
+    fetchData() {
+      db.collection('employees').where('employee_id', '==', to.params.employee_id)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.employee_id = doc.data().employee_id;
+            this.name = doc.data().name;
+            this.dept = doc.data().dept;
+            this.position = doc.data().position;
+          });
+        });
+    },
+    deleteEmployee() {
+      if(confirm('Are you sure?')) {
+        db.collection('employees').where('employee_id', '==', to.params.employee_id)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.ref.delete()
+            this.$route.push('/')
+          });
+        });
+      }
     }
   }
-}
+};
 </script>

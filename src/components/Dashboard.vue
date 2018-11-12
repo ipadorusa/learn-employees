@@ -22,13 +22,11 @@ export default {
     name: 'home',
     data () {
       return {
-        employees: [],
-        loading: true
+        employees: []
       }
     },
     created () {
       db.collection('employees').orderBy('dept').get().then((querySnapshot) => {
-        this.loading = false
         querySnapshot.forEach((doc) => {
           const data = {
             'id': doc.id,
