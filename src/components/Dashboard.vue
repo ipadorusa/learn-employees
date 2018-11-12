@@ -4,7 +4,7 @@
     <ul class="collection with-header">
       <li v-for="employee in employees" v-bind:key="employee.id" class="collection-item">
         <div class="chip">{{employee.dept}}</div>
-        {{employee.employee_id}}: {{employee.name}} 
+        {{employee.employee_id}}: {{employee.name}}
          <router-link class="secondary-content" v-bind:to="{ name: 'view-employee', params: { employee_id: employee.employee_id }}"><i class="fa fa-eye"></i></router-link>
       </li>
     </ul>
@@ -26,7 +26,7 @@ export default {
       }
     },
     created () {
-      db.collection('employees').orderBy('dept').get().then((querySnapshot) => {
+      db.collection('employees').orderBy('employee_id').get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const data = {
             'id': doc.id,
