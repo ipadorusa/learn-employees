@@ -42,30 +42,26 @@ export default {
     $route: "fetchData"
   },
   mothods: {
-    fetchData() {
-      db.collection('employees').where('employee_id', '==', to.params.employee_id)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.employee_id = doc.data().employee_id;
-            this.name = doc.data().name;
-            this.dept = doc.data().dept;
-            this.position = doc.data().position;
-          });
-        });
-    },
-    deleteEmployee() {
-      if(confirm('Are you sure?')) {
-        db.collection('employees').where('employee_id', '==', to.params.employee_id)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref.delete()
-            this.$route.push('/')
-          });
-        });
+    fetchData () {
+        db.collection('employees').where('employee_id', '==', this.$route.params.employee_id).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.employee_id = doc.data().employee_id
+            this.name = doc.data().name
+            this.dept = doc.data().dept
+            this.position = doc.data().position
+          })
+        })
+      },
+      deleteEmployee () {
+        if(confirm ('Are you sure?')) {
+          db.collection('employees').where('employee_id', '==', this.$route.params.employee_id).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              doc.ref.delete();
+              this.$router.push('/')
+            })
+          })
+        }
       }
-    }
   }
 };
 </script>
