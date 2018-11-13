@@ -15,7 +15,7 @@
           <td>{{list.date}}</td>
           <td>{{list.category}}</td>
           <td>{{list.title}}</td>
-          <td><a :href="list.url" target="_blank">{{list.url}}</a></td>
+          <td><a :href="list.url" target="_blank">링크</a></td>
         </tr>
       </tbody>
     </table>
