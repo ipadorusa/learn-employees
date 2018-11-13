@@ -6,6 +6,7 @@ import NewEmployee from '@/components/NewEmployee';
 import EditEmployee from '@/components/EditEmployee';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
+import BookmarkList from '@/components/BookmarkList';
 import firebase from 'firebase';
 
 Vue.use(Router);
@@ -19,6 +20,11 @@ let router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/bookmarklist',
+      name: 'bookmarklist',
+      component: BookmarkList
     },
     {
       path: '/login',
