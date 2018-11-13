@@ -28,21 +28,22 @@
 <script>
 import firebase from 'firebase' 
 export default {
-  name: "register",
-  data() {
+  name: 'register',
+  data: function() {
     return {
       email: '',
       password: ''
-    }
+    };
   },
   methods: {
     register: function(e) {
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+        .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            alert(`You are logged in as ${user.email}`);
+            // console.log(user);
+            alert(`Account Created for ${user.email}`);
             this.$router.go({ path: this.$router.path });
           },
           err => {
