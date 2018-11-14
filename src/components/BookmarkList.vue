@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>BookmarkList</h3>
-    <table class="responsive-table">
+    <table>
       <thead>
         <tr>
           <th>Date</th>
@@ -47,6 +47,3 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
